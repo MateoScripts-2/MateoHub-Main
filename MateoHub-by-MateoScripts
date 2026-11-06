@@ -1,0 +1,107 @@
+-- Load Rayfield
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "MateoHub",
+    LoadingTitle = "Made by: MateoScripts",
+    LoadingSubtitle = "Loading...",
+    ConfigurationSaving = {
+        Enabled = false,
+        FolderName = nil,
+        FileName = "MateoHubConfig"
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "noinvite",
+        RememberJoins = true
+    },
+    KeySystem = false
+}) 
+
+-- Main
+local Tab = Window:CreateTab("Main", 4483362458) 
+
+Tab:CreateSection("Main script")
+
+
+local activeMateoHubGui = nil
+
+Tab:CreateToggle({
+    Name = "Run script",
+    CurrentValue = false,
+    Flag = "RunScriptToggle",
+    Callback = function(Value)
+        if Value then
+            Rayfield:Notify({
+                Title = "MateoHub",
+                Content = "Executed!",
+                Duration = 3.5,
+                Image = 4483362458,
+            })
+            
+            
+          
+            local success, err = pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/MateoScripts-2/MateoHub/refs/heads/main/MateoHub_obfuscated"))()
+            end)
+            
+            if not success then
+                warn("Error executing script: " .. tostring(err))
+            end
+        else
+            Rayfield:Notify({
+                Title = "MateoHub",
+                Content = "Destroyed!",
+                Duration = 3.5,
+                Image = 4483362458,
+            })
+            
+            
+            local CoreGui = game:GetService("CoreGui")
+            local Players = game:GetService("Players")
+            local LocalPlayer = Players.LocalPlayer
+            local PlayerGui = CoreGui:FindFirstChild("CoreGui") or LocalPlayer:FindFirstChild("PlayerGui")
+            
+            if PlayerGui:FindFirstChild("MateoHubGui") then
+                PlayerGui.MateoHubGui:Destroy()
+            end
+            
+            
+            local Lighting = game:GetService("Lighting")
+            if Lighting:FindFirstChild("MateoBlur") then
+                Lighting.MateoBlur:Destroy()
+            end
+        end
+    end,
+})
+
+Tab:CreateLabel("Key: MateoScripts")
+
+Tab:CreateSection("Rayfield Settings") 
+
+Tab:CreateButton({
+   Name = "Destroy Rayfield",
+   Callback = function()
+      Rayfield:Destroy()
+   end,
+})
+
+
+local CreditsTab = Window:CreateTab("Credits", 4483362458)
+
+CreditsTab:CreateSection("Developer Info")
+
+CreditsTab:CreateParagraph({
+   Title = "Credits and Developed",
+   Content = "The developer of this script is: MateoScripts\n\nYT: @MateoScripts\n\nSubscribe to my YT channel!"
+})
+
+
+local LocalPlayer = game:GetService("Players").LocalPlayer
+-- Final Notification
+Rayfield:Notify({
+    Title = "Welcome",
+    Content = "Welcome, " .. LocalPlayer.Name .. ".",
+    Duration = 4,
+    Image = 4483362458,
+})
