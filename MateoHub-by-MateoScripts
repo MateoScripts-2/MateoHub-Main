@@ -182,12 +182,6 @@ task.spawn(function()
 
         closeTween.Completed:Connect(function()
             NotifyGui:Destroy()
-            Rayfield:Notify({
-                Title = "MateoHub",
-                Content = "Ty for using my script  <3",
-                Duration = 4,
-                Image = 4483362458,
-            })
         end)
     end)
 end)
