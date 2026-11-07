@@ -10,7 +10,6 @@ Tym if you use this script! :3
 -- Load Rayfield
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
     
--- Creating a Window
 local Window = Rayfield:CreateWindow({
     Name = "MateoHub",
     LoadingTitle = "Made by: MateoScripts",
@@ -50,7 +49,7 @@ Tab:CreateToggle({
             })
             
             
-          -- Main script
+          
             local success, err = pcall(function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/MateoScripts-2/MateoHub/refs/heads/main/MateoHub_obfuscated"))()
             end)
@@ -96,7 +95,7 @@ Tab:CreateButton({
    end,
 })
 
-        -- Credits tab
+-- Credits tab
 local CreditsTab = Window:CreateTab("Credits", 4483362458)
 
 CreditsTab:CreateSection("Developer Info")
