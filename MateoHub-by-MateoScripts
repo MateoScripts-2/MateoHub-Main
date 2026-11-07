@@ -1,6 +1,16 @@
+--[ MateoScripts!! 
+
+YT: @MateoScripts 
+Tiktok: @mateogutierrezsan - - I don't upload scripts there hehe  :) 
+Tym if you use this script! :3
+
+]--
+
+
 -- Load Rayfield
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
-
+    
+-- Creating a Window
 local Window = Rayfield:CreateWindow({
     Name = "MateoHub",
     LoadingTitle = "Made by: MateoScripts",
@@ -18,7 +28,7 @@ local Window = Rayfield:CreateWindow({
     KeySystem = false
 }) 
 
--- Main
+-- Main Tab
 local Tab = Window:CreateTab("Main", 4483362458) 
 
 Tab:CreateSection("Main script")
@@ -40,7 +50,7 @@ Tab:CreateToggle({
             })
             
             
-          
+          -- Main script
             local success, err = pcall(function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/MateoScripts-2/MateoHub/refs/heads/main/MateoHub_obfuscated"))()
             end)
@@ -86,7 +96,7 @@ Tab:CreateButton({
    end,
 })
 
-
+        -- Credits tab
 local CreditsTab = Window:CreateTab("Credits", 4483362458)
 
 CreditsTab:CreateSection("Developer Info")
