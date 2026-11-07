@@ -1,18 +1,10 @@
---[ MateoScripts!! 
-
-YT: @MateoScripts 
-Tiktok: @mateogutierrezsan - - I don't upload scripts there hehe  :) 
-Tym if you use this script! :3
-
-]--
-
--- Load Rayfield
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
     
 local Window = Rayfield:CreateWindow({
     Name = "MateoHub",
     LoadingTitle = "Made by: MateoScripts",
     LoadingSubtitle = "Loading...",
+    ShowText = "M4teoHub!",
     ConfigurationSaving = {
         Enabled = false,
         FolderName = nil,
@@ -26,7 +18,6 @@ local Window = Rayfield:CreateWindow({
     KeySystem = false
 }) 
 
--- Main Tab
 local Tab = Window:CreateTab("Main", 4483362458) 
 
 Tab:CreateSection("Main script")
@@ -59,7 +50,6 @@ Tab:CreateToggle({
                 Image = 4483362458,
             })
             
-            -- Búsqueda segura en CoreGui y PlayerGui para destruir MateoHubGui
             local CoreGui = game:GetService("CoreGui")
             local Players = game:GetService("Players")
             local LocalPlayer = Players.LocalPlayer
@@ -71,7 +61,6 @@ Tab:CreateToggle({
                 PlayerGui.MateoHubGui:Destroy()
             end
             
-            -- Limpieza del Blur
             local Lighting = game:GetService("Lighting")
             if Lighting:FindFirstChild("MateoBlur") then
                 Lighting.MateoBlur:Destroy()
@@ -91,21 +80,114 @@ Tab:CreateButton({
    end,
 })
 
--- Credits tab
 local CreditsTab = Window:CreateTab("Credits", 4483362458)
 
 CreditsTab:CreateSection("Developer Info")
 
 CreditsTab:CreateParagraph({
    Title = "Credits and Developed",
-   Content = "The developer of this script is: MateoScripts\n\nYT: @MateoScripts\n\nSubscribe to my YT channel!"
+   Content = "The developer of this script is: MateoScripts\n\nYT: @MateoScripts\n\nTiktok: @mateogutierrezsan -- I don't upload content or scripts there hehe : )\n\nSubscribe to my YT channel!"
 })
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
--- Final Notification
+
+-- 1. Notificación normal de Rayfield de bienvenida ("Welcome, User")
 Rayfield:Notify({
     Title = "Welcome",
     Content = "Welcome, " .. LocalPlayer.Name .. ".",
     Duration = 4,
     Image = 4483362458,
 })
+
+-- 2. Notificación personalizada centrada con el mensaje solicitado
+task.spawn(function()
+    local TweenService = game:GetService("TweenService")
+    local CoreGui = game:GetService("CoreGui")
+    local PlayerGui = CoreGui:FindFirstChild("CoreGui") or LocalPlayer:FindFirstChild("PlayerGui")
+
+    if PlayerGui:FindFirstChild("MateoCenterNotify") then
+        PlayerGui.MateoCenterNotify:Destroy()
+    end
+
+    local NotifyGui = Instance.new("ScreenGui")
+    NotifyGui.Name = "MateoCenterNotify"
+    NotifyGui.Parent = PlayerGui
+    NotifyGui.ResetOnSpawn = false
+    NotifyGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    local NotifyFrame = Instance.new("TextButton")
+    NotifyFrame.Name = "NotifyFrame"
+    NotifyFrame.Parent = NotifyGui
+    NotifyFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 22)
+    NotifyFrame.BackgroundTransparency = 0.1
+    NotifyFrame.Position = UDim2.new(0.5, -160, 0, -100)
+    NotifyFrame.Size = UDim2.new(0, 320, 0, 75)
+    NotifyFrame.AutoButtonColor = false
+    NotifyFrame.Text = ""
+
+    local FrameCorner = Instance.new("UICorner")
+    FrameCorner.CornerRadius = UDim.new(0, 14)
+    FrameCorner.Parent = NotifyFrame
+
+    local FrameStroke = Instance.new("UIStroke")
+    FrameStroke.Color = Color3.fromRGB(80, 90, 240)
+    FrameStroke.Thickness = 2
+    FrameStroke.Parent = NotifyFrame
+
+    local TitleLabel = Instance.new("TextLabel")
+    TitleLabel.Parent = NotifyFrame
+    TitleLabel.BackgroundTransparency = 1
+    TitleLabel.Position = UDim2.new(0, 16, 0, 12)
+    TitleLabel.Size = UDim2.new(1, -32, 0, 20)
+    TitleLabel.Font = Enum.Font.GothamBold
+    TitleLabel.Text = "⚡ MateoHub"
+    TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TitleLabel.TextSize = 15
+    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    local DescLabel = Instance.new("TextLabel")
+    DescLabel.Parent = NotifyFrame
+    DescLabel.BackgroundTransparency = 1
+    DescLabel.Position = UDim2.new(0, 16, 0, 36)
+    DescLabel.Size = UDim2.new(1, -32, 0, 22)
+    DescLabel.Font = Enum.Font.Gotham
+    DescLabel.Text = "Thank you for using my script :)"
+    DescLabel.TextColor3 = Color3.fromRGB(170, 170, 200)
+    DescLabel.TextSize = 12
+    DescLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    TweenService:Create(NotifyFrame, TweenInfo.new(0.45, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+        Position = UDim2.new(0.5, -160, 0.35, -37)
+    }):Play()
+
+    local isClosing = false
+    NotifyFrame.MouseButton1Click:Connect(function()
+        if isClosing then return end
+        isClosing = true
+
+        pcall(function()
+            local sound = Instance.new("Sound")
+            sound.SoundId = "rbxassetid://6895070853"
+            sound.Volume = 0.5
+            sound.Parent = game:GetService("Lighting")
+            sound:Play()
+            task.delay(1, function() sound:Destroy() end)
+        end)
+
+        local closeTween = TweenService:Create(NotifyFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+            Position = UDim2.new(0.5, -160, 0, -100),
+            BackgroundTransparency = 1
+        })
+        closeTween:Play()
+
+        closeTween.Completed:Connect(function()
+            NotifyGui:Destroy()
+            Rayfield:Notify({
+                Title = "MateoHub",
+                Content = "Ty for using my script  <3",
+                Duration = 4,
+                Image = 4483362458,
+            })
+        end)
+    end)
+end)
