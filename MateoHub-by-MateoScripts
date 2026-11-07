@@ -6,7 +6,6 @@ Tym if you use this script! :3
 
 ]--
 
-
 -- Load Rayfield
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
     
@@ -32,9 +31,6 @@ local Tab = Window:CreateTab("Main", 4483362458)
 
 Tab:CreateSection("Main script")
 
-
-local activeMateoHubGui = nil
-
 Tab:CreateToggle({
     Name = "Run script",
     CurrentValue = false,
@@ -48,8 +44,6 @@ Tab:CreateToggle({
                 Image = 4483362458,
             })
             
-            
-          
             local success, err = pcall(function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/MateoScripts-2/MateoHub/refs/heads/main/MateoHub_obfuscated"))()
             end)
@@ -65,17 +59,19 @@ Tab:CreateToggle({
                 Image = 4483362458,
             })
             
-            
+            -- Búsqueda segura en CoreGui y PlayerGui para destruir MateoHubGui
             local CoreGui = game:GetService("CoreGui")
             local Players = game:GetService("Players")
             local LocalPlayer = Players.LocalPlayer
-            local PlayerGui = CoreGui:FindFirstChild("CoreGui") or LocalPlayer:FindFirstChild("PlayerGui")
+            local PlayerGui = LocalPlayer:FindFirstChild("PlayerGui")
             
-            if PlayerGui:FindFirstChild("MateoHubGui") then
+            if CoreGui:FindFirstChild("MateoHubGui") then
+                CoreGui.MateoHubGui:Destroy()
+            elseif PlayerGui and PlayerGui:FindFirstChild("MateoHubGui") then
                 PlayerGui.MateoHubGui:Destroy()
             end
             
-            
+            -- Limpieza del Blur
             local Lighting = game:GetService("Lighting")
             if Lighting:FindFirstChild("MateoBlur") then
                 Lighting.MateoBlur:Destroy()
@@ -104,7 +100,6 @@ CreditsTab:CreateParagraph({
    Title = "Credits and Developed",
    Content = "The developer of this script is: MateoScripts\n\nYT: @MateoScripts\n\nSubscribe to my YT channel!"
 })
-
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
 -- Final Notification
